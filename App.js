@@ -87,7 +87,8 @@ export default function App() {
           );
         })}
       </ScrollView>
-      <StatusBar style="auto" />
+      <StatusBar style="auto"
+      />
     </SafeAreaView>
   );
 }
