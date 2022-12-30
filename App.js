@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput} from 'react-native';
+import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,ActivityIndicator,RefreshControl} from 'react-native';
 import { useEffect,useState } from 'react';
 
 export default function App() {
 
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
+
+  const [refreshing, setRefreshing] = useState(false);
 
   const getImage = (name) => {
     if(name){
@@ -18,8 +20,13 @@ export default function App() {
   useEffect(() => {
     fetch('https://api.coinlore.net/api/tickers/')
       .then(response => response.json())
-      .then(data => setCoins(data.data));
-  }, []);
+      .then(data => 
+        {
+          setRefreshing(false);
+        setCoins(data.data)
+  });
+  }
+  , []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +43,24 @@ export default function App() {
         } />
       </View>
 
-      <ScrollView style={styles.body}>
+      <ScrollView style={styles.body}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={() => {
+          setRefreshing(true);
+          fetch('https://api.coinlore.net/api/tickers/')
+          .then(response => response.json())
+          .then(data =>
+            {
+              setRefreshing(false);
+            setCoins(data.data)
+          });
+        }}
+          tintColor="#fff"
+        />
+      }
+      >
+
+        
 
         {coins.filter(coin => coin.name.toLowerCase().includes(search.toLowerCase()) || coin.symbol.toLowerCase().includes(search.toLowerCase())).map(coin => {
         
