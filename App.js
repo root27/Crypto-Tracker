@@ -89,7 +89,7 @@ export default function App() {
                     flexDirection:"row",
                     alignItems:"center",
                   }}>
-                    <Text style={styles.coin_text}>{coin.percent_change_24h} </Text>
+                    <Text style={styles.coin_text}>{coin.percent_change_1h} </Text>
                     <Image source={require('./assets/arrow_down.png')} style={{width:15,height:15,marginLeft:10}} />
 
                   </View>
