@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "cryptoTracker",
+    "name": "Crypto Tracker",
     "slug": "cryptoTracker",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/appicon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/crypto.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
