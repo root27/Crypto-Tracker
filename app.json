@@ -19,7 +19,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.root27.cryptoTracker"
+      "bundleIdentifier": "com.root27.cryptoTracker",
+      "buildNumber": "1.0.2"
     },
     "android": {
       "adaptiveIcon": {
