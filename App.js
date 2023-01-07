@@ -1,14 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,ActivityIndicator,RefreshControl} from 'react-native';
+import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,ActivityIndicator,RefreshControl, Pressable} from 'react-native';
 import { useEffect,useState } from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
 
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
 
+  
 
   function HomeScreen (){
 
@@ -16,6 +18,7 @@ export default function App() {
   const [search, setSearch] = useState('');
 
   const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
 
   const getImage = (name) => {
     if(name){
@@ -73,7 +76,12 @@ export default function App() {
         {coins.filter(coin => coin.name.toLowerCase().includes(search.toLowerCase()) || coin.symbol.toLowerCase().includes(search.toLowerCase())).map(coin => {
         
           return (
-            <View key={coin.id} style={styles.coin}>
+
+            <Pressable key={coin.id} style={styles.coin} onPress={
+              () => {
+                navigation.navigate('CoinDetailsScreen', {Coin:coin});
+              }
+            } >
               <View style={{
                 display:"flex",
                 flexDirection:"row",
@@ -115,7 +123,7 @@ export default function App() {
               }
               
               
-            </View>
+            </Pressable>
           );
         })}
       </ScrollView>
@@ -125,13 +133,45 @@ export default function App() {
     )
   }
 
+  
+function CoinDetailsScreen({route}){
+
+  const {Coin} = route.params;
+
+
+
+
+
+  return(
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.header_text}>{Coin.name}</Text>
+        
+      </View>
+      
+      
+    </SafeAreaView>
+  )
+
+}
+
+
+
+
 
 
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={
+         { headerShown:false
+          }
+        } />
+        <Stack.Screen name="CoinDetailsScreen" component={CoinDetailsScreen} options={
+          { headerShown:false
+            }
+        } />
       </Stack.Navigator>
     </NavigationContainer>
     
