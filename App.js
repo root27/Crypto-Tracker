@@ -1,10 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,ActivityIndicator,RefreshControl} from 'react-native';
 import { useEffect,useState } from 'react';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+
 
 export default function App() {
 
-  const [coins, setCoins] = useState([]);
+  const Stack = createNativeStackNavigator();
+
+
+  function HomeScreen (){
+
+    const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
 
   const [refreshing, setRefreshing] = useState(false);
@@ -28,8 +36,8 @@ export default function App() {
   }
   , []);
 
-  return (
-    <SafeAreaView style={styles.container}>
+    return(
+      <SafeAreaView style={styles.container}>
     
       <View style={styles.header}>
         <Text style={styles.header_text}>Crypto Tracker</Text>
@@ -114,6 +122,19 @@ export default function App() {
       <StatusBar style="auto"
       />
     </SafeAreaView>
+    )
+  }
+
+
+
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
 
