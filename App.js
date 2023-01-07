@@ -1,14 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,ActivityIndicator,RefreshControl, Pressable, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,RefreshControl, Pressable, TouchableOpacity} from 'react-native';
 import { useEffect,useState } from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import {useNavigation} from '@react-navigation/native';
-import { AntDesign } from "@expo/vector-icons";
+import { useAsyncStorage } from "@react-native-community/async-storage";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
 
   
   function HomeScreen (){
@@ -353,6 +356,7 @@ function CoinDetailsScreen({navigation,route}){
   )
 
 }
+
 
 
 
