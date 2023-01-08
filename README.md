@@ -4,9 +4,7 @@ Crypto Tracker is a simple app that allows you to track the price of cryptocurre
 
 ### App Screenshots
 
-![Screenshot 1](img/screenshot1.png)
-![Screenshot 2](img/screenshot2.png)
-![Screenshot 3](img/screenshot3.png)
+<img src="img/screenshot1.png" width="200"> <img src="img/screenshot2.png" width="200"> <img src="img/screenshot3.png" width="200">
 
 
 ## Features 
