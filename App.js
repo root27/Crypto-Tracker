@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,RefreshControl, Pressable, TouchableOpacity} from 'react-native';
 import { useEffect,useState } from 'react';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FavouritesScreen from "./screens/FavouritesScreen";
@@ -18,9 +18,9 @@ export default function App() {
 
   useEffect(()=>{
     const getFavourites = async()=>{
-      const favourites = await AsyncStorage.getItem('favourites');
-      if(favourites){
-        setFavourites(JSON.parse(favourites));
+      const favs = await AsyncStorage.getItem('favourites');
+      if(favs){
+        setFavourites(JSON.parse(favs));
       }
     }
     getFavourites();
