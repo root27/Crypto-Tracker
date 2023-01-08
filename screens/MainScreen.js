@@ -3,7 +3,7 @@ import React ,{useContext}from 'react'
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { FavouritesContext } from "../hooks/useFavourite";
+import { FavouritesContext } from "../hooks/FavouritesContext";
 import HomeScreen from "./HomeScreen";
 import CoinDetailsScreen from "./CoinDetailsScreen";
 

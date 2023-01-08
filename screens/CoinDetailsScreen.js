@@ -2,7 +2,7 @@ import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,Refres
 import React ,{useState,useEffect,useContext}from 'react'
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FavouritesContext } from "../hooks/useFavourite";
+import { FavouritesContext } from "../hooks/FavouritesContext";
 
 const CoinDetailsScreen = ({navigation,route}) => {
     const {Coin} = route.params;
@@ -33,12 +33,7 @@ const CoinDetailsScreen = ({navigation,route}) => {
     const addFavourite = async(coin) => {
 
       const data = {
-        id:coin.id,
-        name:coin.name,
-        symbol:coin.symbol,
-        rank:coin.rank,
-        price_usd:coin.price_usd,
-        percent_change_24h:coin.percent_change_24h,
+        id:coin.id
         
       }
 
@@ -55,6 +50,7 @@ const CoinDetailsScreen = ({navigation,route}) => {
     const removeFavourite = async(coin) => {
 
         const newFavourites = favourites.filter((favourite) => favourite.id !== coin.id);
+        console.log(newFavourites);
         setFavourites(newFavourites);
 
         await AsyncStorage.setItem('favourites',JSON.stringify(newFavourites));

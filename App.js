@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View ,SafeAreaView,ScrollView,Image, TextInput,RefreshControl, Pressable, TouchableOpacity} from 'react-native';
-import { useEffect,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FavouritesScreen from "./screens/FavouritesScreen";
 import { AntDesign } from '@expo/vector-icons';
-import { FavouritesContext } from "./hooks/useFavourite";
+import  {FavouritesContext}  from "./hooks/FavouritesContext";
 import MainScreen from "./screens/MainScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -15,6 +14,12 @@ export default function App() {
   const Tab = createBottomTabNavigator();
 
   const [favourites,setFavourites] = useState([]);
+
+  const FavouritesContextValue = React.useMemo(()=>({
+    favourites,
+    setFavourites
+  }),[favourites]);
+
 
   useEffect(()=>{
     const getFavourites = async()=>{
@@ -29,7 +34,7 @@ export default function App() {
 
   return (
 
-    <FavouritesContext.Provider value={{favourites, setFavourites}}>
+    <FavouritesContext.Provider value={FavouritesContextValue}>
       <NavigationContainer>
         <Tab.Navigator screenOptions={{
           headerShown:false,
