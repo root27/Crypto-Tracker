@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View,SafeAreaView, ScrollView,Pressable,Image,RefreshControl} from 'react-native'
 import React,{useState,useEffect,useContext}from 'react'
-import { FavouritesContext } from "../hooks/useFavourite";
+import { FavouritesContext } from "../hooks/FavouritesContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const FavouritesScreen = ({navigation}) => {
 
-    const {favourites,setFavourites} = useContext(FavouritesContext);
+    const {favourites} = useContext(FavouritesContext);
 
-   const [refreshing, setRefreshing] = useState(false);
 
    const [favouriteCoins, setFavouriteCoins] = useState([]);
 
@@ -18,37 +19,37 @@ const FavouritesScreen = ({navigation}) => {
         }
       }
 
-      const updateData = async () => {
-
-        
-
-        setRefreshing(true);
-        let updatedData = [];
-        favourites.map(async(coin) => {
-            const response = await fetch(`https://api.coinlore.net/api/ticker/?id=${coin.id}`);
-            const data = await response.json();
-           
-
-            updatedData.push(data[0]);
-        
-
-
-        });
-        setFavouriteCoins(updatedData);
-        setRefreshing(false);
-    }
+    
 
 
        useEffect(() => {
+
         
-         if(favourites.length > 0){
-                updateData();
-                console.log(favouriteCoins);
+
+        const getData = async() => {
+            var favs = [];
+           await Promise.all(favourites.map(async(coin) => {
+                const response = await fetch(`https://api.coinlore.net/api/ticker/?id=${coin.id}`);
+                const data = await response.json();
+                
+                favs.push(data[0]);
                 
                 
-         }
-         
-     }, [favourites]);
+                
+            }
+            
+            ));
+            
+            setFavouriteCoins(favs);
+        }
+
+
+    getData();
+   
+
+     },[favourites]);
+
+
 
 
 
@@ -71,11 +72,12 @@ const FavouritesScreen = ({navigation}) => {
             backgroundColor:'#272c35',
             padding:10,
         }}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={updateData} tintColor="#fff" />}
+            // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={updateData} tintColor="#fff" />}
         >
             {
                 favouriteCoins.map((coin) => {
 
+                    
                    
 
                 return(
@@ -100,7 +102,7 @@ const FavouritesScreen = ({navigation}) => {
                         
                           <Text style={styles.coin_text}>${coin.price_usd}</Text>
                         </View>
-                        {/* {
+                        {
                           coin.percent_change_24h < 0 ? (
                             <View style={{
                               display:"flex",
@@ -123,7 +125,7 @@ const FavouritesScreen = ({navigation}) => {
                             </View>
                           )
                         }
-                         */}
+                        
                         
                       </Pressable>
                    
