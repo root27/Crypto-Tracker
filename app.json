@@ -2,7 +2,7 @@
   "expo": {
     "name": "Crypto Tracker",
     "slug": "cryptoTracker",
-    "version": "1.0.2",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appicon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.root27.cryptoTracker",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
